@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Configuración básica del proyecto con Supabase
 
-## Getting Started
+Este proyecto utiliza **Supabase** como backend (base de datos, autenticación y almacenamiento).  
+Para que la aplicación funcione correctamente, debes configurar las **variables de entorno** locales.
 
-First, run the development server:
+---
+
+## Requisitos previos
+
+Asegúrate de tener instalado:
+
+- Node.js 18+
+- npm, pnpm o yarn
+- Una cuenta en Supabase
+- Un proyecto creado en https://app.supabase.com
+
+---
+
+## 1. Renombrar el archivo .env.example a `.env.local`
+
+En el archivo renombrado como **.env.local** agregar las siguientes variables:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+NEXT_PUBLIC_SUPABASE_URL=tu_url_de_supabase
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_anon_key
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Puedes obtener estos valores en:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Supabase Dashboard
+- Proyecto → Project Settings
+- API → sección Project URL y anon public key
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 2. Instalar dependencias
 
-## Learn More
+Si usas npm:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+Si usas pnpm:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+pnpm install
+
+```
+
+Si usas yarn:
+
+```bash
+
+yarn install
+
+```
+
+## 3. Levantar el servidor de desarrollo
+
+Ejecutar el siguente comando para levantar el servidor
+
+```bash
+
+npm run dev
+
+```
+
+La app estará disponible en:
+
+```bash
+
+http://localhost:3000
+
+```
+
+## 4. Conexión a Supabase
+
+Este proyecto utiliza el cliente oficial, en el caso de que no se haya instalado ejecutar el siguiente comando:
+
+```bash
+
+npm install @supabase/supabase-js
+
+```
+
+Ejemplo de inicialización:
+
+```bash
+
+import { createClient } from '@supabase/supabase-js'
+
+export const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
+
+```
+
+## 5. Seguridad
+
+- Nunca expongas la service_role_key en el frontend.
+- No subas el archivo .env.local al repositorio.
+- Next.js ya lo ignora automáticamente en .gitignore.
+
+## 6. Scripts disponibles
+
+- `npm run dev` → Modo desarrollo
+
+- `npm run build` → Build de producción
+
+- `npm run start` → Ejecutar la versión compilada
