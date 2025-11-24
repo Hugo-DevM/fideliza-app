@@ -11,6 +11,7 @@ body {
   height: 100%;
   max-width: 100vw;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 body {
@@ -31,12 +32,16 @@ a {
 }
 
 .layout-body {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .layout-main {
   flex: 1;
   display: flex;
+  overflow-y: auto;
+  margin-top: 70px;
+  height: calc(100vh - 70px);
 }

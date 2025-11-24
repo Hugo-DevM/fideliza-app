@@ -7,7 +7,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 40px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 50;
   font-family: var(--font-poppins);
 }
