@@ -1,35 +1,39 @@
 "use client";
+
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import styles from "./page.module.css";
-import FormInput from "@/components/forms/FormInput";
-import ButtonCustom from "@/components/ui/Button";
 import {
   defaultValuesRewards,
   RewardsSchema,
 } from "@/features/rewards/schemas/rewards.schema";
+
+import styles from "./page.module.css";
+import FormInput from "@/components/forms/FormInput";
+import ButtonCustom from "@/components/ui/Button";
 import FormSelect from "@/components/forms/FormSelect";
-import { rewardsTypeSchema } from "@/config/constants";
-import Image from "next/image";
+import { benefitTypesSchema, requirementTypesSchema } from "@/config/constants";
 
 export default function Rewards() {
-  const methodsRewards = useForm({
+  const methods = useForm({
     mode: "onChange",
     resolver: zodResolver(RewardsSchema),
     defaultValues: defaultValuesRewards,
   });
+
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors, isValid, isSubmitting },
-  } = methodsRewards;
+  } = methods;
 
-  const rewardType = methodsRewards.watch("rewardType");
+  const benefitType = watch("benefitType");
+  const requirementType = watch("requirementType");
 
   const onSubmit = () => {
     console.log("Envio de datos");
   };
+
   return (
     <div className={styles.page}>
       <div className={styles.card}>
@@ -38,13 +42,15 @@ export default function Rewards() {
           Ingresa los datos para crear una nueva recompensa
         </p>
 
-        <FormProvider {...methodsRewards}>
+        <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+            <h2 className={styles.sectionTitle}>Beneficio</h2>
+
             <div className={styles.inputGroup}>
               <label htmlFor="rewardName">Nombre de la recompensa</label>
               <FormInput
                 type="text"
-                placeholder="Cafe Gratis"
+                placeholder="Café Gratis"
                 id="rewardName"
                 {...register("rewardName")}
               />
@@ -60,7 +66,7 @@ export default function Rewards() {
               <FormInput
                 type="text"
                 id="description"
-                placeholder="En la compra de 10 cafes en 11 es gratis"
+                placeholder="En la compra de 10 cafés el 11 es gratis"
                 {...register("description")}
               />
               {errors.description && (
@@ -69,55 +75,119 @@ export default function Rewards() {
                 </span>
               )}
             </div>
+
             <div className={styles.inputGroup}>
-              <label htmlFor="rewardType">Tipo de Recompensa</label>
+              <label htmlFor="benefitType">Tipo de Beneficio</label>
               <FormSelect
-                id="rewardType"
-                {...register("rewardType")}
+                id="benefitType"
+                {...register("benefitType")}
                 defaultValue=""
               >
                 <option value="" disabled>
-                  Selecciona un tipo de recompensa
+                  Selecciona un tipo de beneficio
                 </option>
-
-                {rewardsTypeSchema.map((g) => (
-                  <option key={g.id} value={g.id}>
-                    {g.label}
+                {benefitTypesSchema.map((b) => (
+                  <option key={b.id} value={b.id}>
+                    {b.label}
                   </option>
                 ))}
               </FormSelect>
-              {errors.rewardType && (
+              {errors.benefitType && (
                 <span className={styles.error}>
-                  {errors.rewardType.message}
+                  {errors.benefitType.message}
                 </span>
               )}
             </div>
+
             <div className={styles.inputGroup}>
-              <label htmlFor="value">Valor de la Recompensa</label>
+              <label htmlFor="benefitValue">Valor del Beneficio</label>
+
               <FormInput
-                type={rewardType === "4" ? "text" : "number"}
-                id="value"
-                placeholder={
-                  rewardType === "4" ? "Ej: café latter" : "Ej: 10, 200, 5"
+                id="benefitValue"
+                type={
+                  benefitType === "1" || benefitType === "5" ? "text" : "number"
                 }
-                {...register("value", {
+                placeholder={
+                  benefitType === "1" || benefitType === "5"
+                    ? "Ej: Café Latte"
+                    : "Ej: 10, 200, 5"
+                }
+                {...register("benefitValue", {
                   setValueAs: (val) => {
-                    if (rewardType === "4") return val;
-                    if (val === "" || val === null || val === undefined)
-                      return "";
+                    if (benefitType === "1" || benefitType === "5") return val;
+                    if (val === "" || val === null) return "";
                     const num = Number(val);
                     return isNaN(num) ? "" : num;
                   },
                 })}
               />
-              {errors.value && (
-                <span className={styles.error}>{errors.value.message}</span>
+
+              {errors.benefitValue && (
+                <span className={styles.error}>
+                  {errors.benefitValue.message}
+                </span>
               )}
             </div>
+
+            <h2 className={styles.sectionTitle}>Requisito</h2>
+
+            <div className={styles.inputGroup}>
+              <label htmlFor="requirementType">Tipo de Requisito</label>
+
+              <FormSelect
+                id="requirementType"
+                {...register("requirementType")}
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Selecciona cómo se gana la recompensa
+                </option>
+                {requirementTypesSchema.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.label}
+                  </option>
+                ))}
+              </FormSelect>
+
+              {errors.requirementType && (
+                <span className={styles.error}>
+                  {errors.requirementType.message}
+                </span>
+              )}
+            </div>
+
+            <div className={styles.inputGroup}>
+              <label htmlFor="requirementValue">Valor del Requisito</label>
+
+              <FormInput
+                id="requirementValue"
+                type={requirementType === "4" ? "text" : "number"}
+                placeholder={
+                  requirementType === "4"
+                    ? "Ej: Café latte"
+                    : "Ej: 10, 200, 1000"
+                }
+                {...register("requirementValue", {
+                  setValueAs: (val) => {
+                    if (requirementType === "4") return val;
+                    if (val === "" || val === null) return "";
+                    const num = Number(val);
+                    return isNaN(num) ? "" : num;
+                  },
+                })}
+              />
+
+              {errors.requirementValue && (
+                <span className={styles.error}>
+                  {errors.requirementValue.message}
+                </span>
+              )}
+            </div>
+
             <ButtonCustom
               isValid={isValid}
               isSubmitting={isSubmitting}
-              loadingText="Ingresando..."
+              loadingText="Guardando..."
             >
               Registrar
             </ButtonCustom>

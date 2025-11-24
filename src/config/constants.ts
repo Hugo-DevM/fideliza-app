@@ -19,14 +19,21 @@ export const girosSingupSchema = [
   { id: 18, label: "Servicios de limpieza y mantenimiento" },
 ] as const;
 
-export const rewardsTypeSchema = [
+export const benefitTypesSchema = [
+  { id: 1, label: "Producto gratis" },
+  { id: 2, label: "Porcentaje" },
+  { id: 3, label: "Monto" },
+  { id: 4, label: "Puntos" },
+  { id: 5, label: "Producto específico" },
+];
+
+export const requirementTypesSchema = [
   { id: 1, label: "Visitas" },
   { id: 2, label: "Compras" },
   { id: 3, label: "Monto acumulado" },
-  { id: 4, label: "Producto especifico" },
+  { id: 4, label: "Producto específico" },
   { id: 5, label: "Puntos" },
-  { id: 6, label: "Descuento directo" },
-] as const;
+];
 
 export const navItems = [
   { href: "/", label: "Inicio" },
