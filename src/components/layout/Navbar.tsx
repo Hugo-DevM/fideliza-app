@@ -29,19 +29,27 @@ export default function Navbar() {
         </div>
 
         <div className={styles.center}>
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={
-                pathname === item.href
-                  ? `${styles.navLink} ${styles.navItem} ${styles.active}`
-                  : `${styles.navLink} ${styles.navItem}`
-              }
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isHome = item.href === "/";
+
+            const isActive = isHome
+              ? pathname === "/"
+              : pathname.startsWith(item.href);
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={
+                  isActive
+                    ? `${styles.navLink} ${styles.navItem} ${styles.active}`
+                    : `${styles.navLink} ${styles.navItem}`
+                }
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </div>
 
         <button className={styles.burger} onClick={() => setOpen(!open)}>
