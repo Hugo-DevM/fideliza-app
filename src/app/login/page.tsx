@@ -31,7 +31,7 @@ export default function Login() {
     <div className={styles.page}>
       <div className={styles.card}>
         <Image
-          src="/Logo.svg"
+          src="/logo.svg"
           width={160}
           height={80}
           alt="Fideliza+"
