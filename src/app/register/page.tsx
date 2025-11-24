@@ -121,7 +121,7 @@ export default function Register() {
             <ButtonCustom
               isValid={isValid}
               isSubmitting={isSubmitting}
-              loadingText="Ingresando..."
+              loadingText="Creando cuenta..."
             >
               Crear Cuenta
             </ButtonCustom>

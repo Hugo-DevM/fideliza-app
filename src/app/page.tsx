@@ -91,7 +91,7 @@ export default function Home() {
             <ButtonCustom
               isValid={isValid}
               isSubmitting={isSubmitting}
-              loadingText="Ingresando..."
+              loadingText="Guardando..."
             >
               Registrar
             </ButtonCustom>
