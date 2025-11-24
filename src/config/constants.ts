@@ -1,24 +1,3 @@
-export const girosSingupSchema2 = [
-  "Estéticas y barberías",
-  "Restaurantes, cafeterías y food trucks",
-  "Tiendas de abarrotes / minisupers",
-  "Boutiques de ropa y calzado",
-  "Farmacias independientes",
-  "Tiendas de electrónica y accesorios para celular",
-  "Tiendas de nutrición y suplementos",
-  "Gimnasios y estudios fitness",
-  "Clínicas dentales y consultorios",
-  "Talleres mecánicos",
-  "Lavanderías y tintorerías",
-  "Spa, masajes y wellness",
-  "Tiendas de mascotas y veterinarias",
-  "Ferreterías",
-  "Panaderías y pastelerías",
-  "Carnicerías y pescaderías",
-  "Agencias de viajes",
-  "Servicios de limpieza y mantenimiento",
-] as const;
-
 export const girosSingupSchema = [
   { id: 1, label: "Estéticas y barberías" },
   { id: 2, label: "Restaurantes, cafeterías y food trucks" },
@@ -39,3 +18,11 @@ export const girosSingupSchema = [
   { id: 17, label: "Agencias de viajes" },
   { id: 18, label: "Servicios de limpieza y mantenimiento" },
 ] as const;
+
+export const navItems = [
+  { href: "/", label: "Inicio" },
+  { href: "/clients", label: "Clientes" },
+  { href: "/rewards", label: "Recompensas" },
+  { href: "/reports", label: "Informes" },
+  { href: "/settings", label: "Ajustes" },
+];
