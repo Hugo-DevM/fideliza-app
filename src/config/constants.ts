@@ -42,3 +42,61 @@ export const navItems = [
   { href: "/reports", label: "Informes" },
   { href: "/settings", label: "Ajustes" },
 ];
+
+//Datos ficticios a borrar
+export const clientsMock = [
+  {
+    id: 1,
+    nombre: "Sofía Rodríguez",
+    visitas: 2,
+    recompensa: "Café Gratis",
+  },
+  {
+    id: 2,
+    nombre: "Carlos Pérez",
+    visitas: 10,
+    recompensa: "Café Gratis",
+  },
+  {
+    id: 3,
+    nombre: "Ana García",
+    visitas: 5,
+    recompensa: "Rebanada de pastel",
+  },
+  {
+    id: 4,
+    nombre: "Javier López",
+    visitas: 1,
+    recompensa: "Café Gratis",
+  },
+  {
+    id: 5,
+    nombre: "María Fernández",
+    visitas: 6,
+    recompensa: "Rebanada de pastel",
+  },
+  {
+    id: 6,
+    nombre: "Carlos Tapia",
+    visitas: 3,
+    recompensa: "Café Gratis",
+  },
+  {
+    id: 7,
+    nombre: "Armando Cuevas",
+    visitas: 8,
+    recompensa: "Café Gratis",
+  },
+  {
+    id: 8,
+    nombre: "Ricardo Parza",
+    visitas: 1,
+    recompensa: "Café Gratis",
+  },
+  {
+    id: 9,
+    nombre: "Fernanda Chávez",
+    visitas: 3,
+    recompensa: "Café Gratis",
+  },
+];
