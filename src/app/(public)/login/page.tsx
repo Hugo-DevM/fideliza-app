@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   LoginSchema,
   defaultValuesLogin,
-} from "../../features/auth/schemas/login.schema";
+} from "@/features/auth/schemas/login.schema";
 
 import styles from "./page.module.css";
 import Image from "next/image";
