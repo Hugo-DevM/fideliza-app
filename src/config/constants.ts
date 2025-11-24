@@ -19,6 +19,15 @@ export const girosSingupSchema = [
   { id: 18, label: "Servicios de limpieza y mantenimiento" },
 ] as const;
 
+export const rewardsTypeSchema = [
+  { id: 1, label: "Visitas" },
+  { id: 2, label: "Compras" },
+  { id: 3, label: "Monto acumulado" },
+  { id: 4, label: "Producto especifico" },
+  { id: 5, label: "Puntos" },
+  { id: 6, label: "Descuento directo" },
+] as const;
+
 export const navItems = [
   { href: "/", label: "Inicio" },
   { href: "/clients", label: "Clientes" },
