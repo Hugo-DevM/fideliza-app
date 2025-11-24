@@ -1,7 +1,6 @@
 import { Poppins, Lato } from "next/font/google";
 import React from "react";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -34,8 +33,7 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="es">
       <body className={`layout-body ${poppins.variable} ${lato.variable}`}>
-        <Navbar />
-        <main className="layout-main">{children}</main>
+        {children}
       </body>
     </html>
   );
