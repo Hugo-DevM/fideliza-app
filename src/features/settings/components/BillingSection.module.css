@@ -1,0 +1,66 @@
+.billingPlan {
+  margin-bottom: 1.5rem;
+}
+
+.billingLabel {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #9ca3af;
+  letter-spacing: 0.06em;
+}
+
+.billingPlanName {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-top: 0.25rem;
+}
+
+.billingPrice {
+  font-size: 0.95rem;
+  color: #10b981;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.formGroupRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.formGroup label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.actions {
+  margin-top: 0.8rem;
+  display: flex;
+  width: 260px;
+}
+
+.error {
+  font-family: var(--font-lato);
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: -0.2rem;
+}
+
+@media (max-width: 640px) {
+  .formGroupRow {
+    grid-template-columns: 1fr;
+  }
+}

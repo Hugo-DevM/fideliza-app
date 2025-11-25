@@ -1,0 +1,47 @@
+.securityBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.securityTitle {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.securityText {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 0.2rem;
+}
+
+.secondaryButton {
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  padding: 0.45rem 1.1rem;
+  background: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: #111827;
+  transition: background 0.2s ease, border 0.2s ease;
+}
+
+.secondaryButton:hover {
+  background: #f3f4ff;
+  border-color: #0a1773;
+}
+
+.deleteButton {
+  border-color: #dc2626;
+  color: #dc2626;
+}
+
+.deleteButton:hover {
+  background: #fee2e2;
+  border-color: #dc2626;
+}
