@@ -1,0 +1,16 @@
+.card {
+  border-radius: 1rem;
+  padding: 2rem 1rem;
+  background: white;
+  border: 1px solid #d4d4d466;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.128);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  font-family: var(--font-poppins);
+}
+
+.subtitle {
+  color: #03d56a;
+}
