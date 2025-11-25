@@ -1,0 +1,43 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.formGroupRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.formGroup label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.actions {
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: flex-end;
+  width: 180px;
+}
+
+.error {
+  font-family: var(--font-lato);
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: -0.2rem;
+}
+
+@media (max-width: 640px) {
+  .formGroupRow {
+    grid-template-columns: 1fr;
+  }
+}

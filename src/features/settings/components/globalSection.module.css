@@ -1,0 +1,37 @@
+.card {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1.8rem 1.6rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 3rem;
+}
+
+.cardTitle {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.cardSubtitle {
+  margin-top: 0.4rem;
+  margin-bottom: 1.6rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 1.4rem 1.2rem;
+    min-height: 400px;
+  }
+}
