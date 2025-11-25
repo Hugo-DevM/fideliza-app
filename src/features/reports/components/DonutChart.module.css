@@ -1,0 +1,13 @@
+.container {
+  width: 220px;
+  height: 220px;
+}
+
+.data {
+  position: relative;
+  top: -140px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1f2937;
+}
