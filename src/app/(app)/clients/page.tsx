@@ -2,14 +2,17 @@
 
 import { useState } from "react";
 import { clientsMock } from "@/config/constants";
+import { Client } from "@/features/clients/type";
 
 import styles from "./page.module.css";
-import Image from "next/image";
 import FormInput from "@/components/forms/FormInput";
 import Link from "next/link";
+import TableRow from "@/features/clients/components/TableRow";
+import ConfirmModal from "@/components/modal/ConfirmModal";
 
 export default function ClientesPage() {
   const [search, setSearch] = useState("");
+  const [deleteClient, setDeleteClient] = useState<Client | null>(null);
 
   const clientes = clientsMock.filter((c) =>
     c.nombre.toLowerCase().includes(search.toLowerCase())
@@ -40,19 +43,37 @@ export default function ClientesPage() {
                 <th>Nombre</th>
                 <th>Visitas</th>
                 <th>Recompensa Disponible</th>
+                <th></th>
               </tr>
             </thead>
+
             <tbody>
               {clientes.map((cliente) => (
-                <tr key={cliente.id}>
-                  <td>{cliente.nombre}</td>
-                  <td>{cliente.visitas}</td>
-                  <td>{cliente.recompensa}</td>
-                </tr>
+                <TableRow
+                  key={cliente.id}
+                  cliente={cliente}
+                  onDelete={() => setDeleteClient(cliente)}
+                />
               ))}
             </tbody>
           </table>
         </div>
+        <ConfirmModal
+          open={!!deleteClient}
+          title="¿Eliminar cliente?"
+          message={
+            deleteClient
+              ? `¿Estás seguro de eliminar a ${deleteClient.nombre}? Esta acción no se puede deshacer.`
+              : ""
+          }
+          confirmLabel="Eliminar"
+          confirmColor="danger"
+          onCancel={() => setDeleteClient(null)}
+          onConfirm={() => {
+            console.log("Eliminado:", deleteClient?.id);
+            setDeleteClient(null);
+          }}
+        />
       </div>
     </div>
   );
