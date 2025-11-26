@@ -32,7 +32,7 @@ export default function ClientesPage() {
         <div className={styles.header}>
           <h1 className={styles.title}>Clientes</h1>
 
-          <Link href="/clients/newClient" className={styles.addButton}>
+          <Link href="/clients/newclient" className={styles.addButton}>
             Agregar Cliente
           </Link>
         </div>
