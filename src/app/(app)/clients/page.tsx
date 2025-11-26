@@ -84,9 +84,9 @@ export default function ClientesPage() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="#0a1773"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path d="M15 6l-6 6l6 6" />
             </svg>
@@ -107,9 +107,9 @@ export default function ClientesPage() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="#0a1773"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path d="M9 6l6 6l-6 6" />
             </svg>
