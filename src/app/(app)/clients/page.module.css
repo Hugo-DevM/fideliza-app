@@ -28,7 +28,7 @@
 }
 
 .addButton {
-  background: #132baa;
+  background: #0a1773;
   color: white;
   padding: 10px 18px;
   border: none;
@@ -87,4 +87,35 @@
   padding: 14px 20px;
   font-size: 15px;
   color: #444;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.pagination button {
+  padding: 0.25rem;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  background: white;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pagination button:hover {
+  background: #f3f3f3;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  font-size: 14px;
+  color: #555;
 }
