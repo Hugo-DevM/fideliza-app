@@ -1,198 +1,136 @@
 "use client";
 
-import { FormProvider, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  defaultValuesRewards,
-  RewardsSchema,
-} from "@/features/rewards/schemas/rewards.schema";
+import { useState } from "react";
+import { rewardsMock } from "@/config/constants";
+import { Reward } from "@/features/rewards/type";
 
 import styles from "./page.module.css";
 import FormInput from "@/components/forms/FormInput";
-import ButtonCustom from "@/components/ui/Button";
-import FormSelect from "@/components/forms/FormSelect";
-import { benefitTypesSchema, requirementTypesSchema } from "@/config/constants";
+import Link from "next/link";
+import ConfirmModal from "@/components/modal/ConfirmModal";
+import RewardRow from "@/features/rewards/components/RewardRow";
 
-export default function Rewards() {
-  const methods = useForm({
-    mode: "onChange",
-    resolver: zodResolver(RewardsSchema),
-    defaultValues: defaultValuesRewards,
-  });
+export default function RecompensasPage() {
+  const [search, setSearch] = useState("");
+  const [deleteReward, setDeleteReward] = useState<Reward | null>(null);
 
-  const {
-    handleSubmit,
-    register,
-    watch,
-    formState: { errors, isValid, isSubmitting },
-  } = methods;
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 5;
 
-  const benefitType = watch("benefitType");
-  const requirementType = watch("requirementType");
+  const filtered = rewardsMock.filter((r) =>
+    r.beneficio.nombre.toLowerCase().includes(search.toLowerCase())
+  );
 
-  const onSubmit = () => {
-    console.log("Envio de datos");
-  };
+  const totalPages = Math.ceil(filtered.length / rowsPerPage);
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const recompensasPagina = filtered.slice(start, end);
 
   return (
     <div className={styles.page}>
-      <div className={styles.card}>
-        <h1 className={styles.title}>Crear Nueva Recompensa</h1>
-        <p className={styles.subtitle}>
-          Ingresa los datos para crear una nueva recompensa
-        </p>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Recompensas</h1>
 
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-            <h2 className={styles.sectionTitle}>Beneficio</h2>
+          <Link href="/rewards/newrewards" className={styles.addButton}>
+            Agregar Recompensa
+          </Link>
+        </div>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="rewardName">Nombre de la recompensa</label>
-              <FormInput
-                type="text"
-                placeholder="Café Gratis"
-                id="rewardName"
-                {...register("rewardName")}
-              />
-              {errors.rewardName && (
-                <span className={styles.error}>
-                  {errors.rewardName.message}
-                </span>
-              )}
-            </div>
+        <div className={styles.searchContainer}>
+          <FormInput
+            type="text"
+            value={search}
+            placeholder="Buscar Recompensa..."
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
+          />
+        </div>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="description">Descripción</label>
-              <FormInput
-                type="text"
-                id="description"
-                placeholder="En la compra de 10 cafés el 11 es gratis"
-                {...register("description")}
-              />
-              {errors.description && (
-                <span className={styles.error}>
-                  {errors.description.message}
-                </span>
-              )}
-            </div>
+        <div className={styles.tableWrapper}>
+          <table className={styles.table}>
+            <thead className={styles.tableHead}>
+              <tr>
+                <th>Nombre</th>
+                <th>Beneficio</th>
+                <th>Requisito</th>
+                <th></th>
+              </tr>
+            </thead>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="benefitType">Tipo de Beneficio</label>
-              <FormSelect
-                id="benefitType"
-                {...register("benefitType")}
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Selecciona un tipo de beneficio
-                </option>
-                {benefitTypesSchema.map((b) => (
-                  <option key={b.id} value={b.id}>
-                    {b.label}
-                  </option>
-                ))}
-              </FormSelect>
-              {errors.benefitType && (
-                <span className={styles.error}>
-                  {errors.benefitType.message}
-                </span>
-              )}
-            </div>
+            <tbody>
+              {recompensasPagina.map((reward) => (
+                <RewardRow
+                  key={reward.id}
+                  reward={reward}
+                  onDelete={() => setDeleteReward(reward)}
+                />
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="benefitValue">Valor del Beneficio</label>
-
-              <FormInput
-                id="benefitValue"
-                type={
-                  benefitType === "1" || benefitType === "5" ? "text" : "number"
-                }
-                placeholder={
-                  benefitType === "1" || benefitType === "5"
-                    ? "Ej: Café Latte"
-                    : "Ej: 10, 200, 5"
-                }
-                {...register("benefitValue", {
-                  setValueAs: (val) => {
-                    if (benefitType === "1" || benefitType === "5") return val;
-                    if (val === "" || val === null) return "";
-                    const num = Number(val);
-                    return isNaN(num) ? "" : num;
-                  },
-                })}
-              />
-
-              {errors.benefitValue && (
-                <span className={styles.error}>
-                  {errors.benefitValue.message}
-                </span>
-              )}
-            </div>
-
-            <h2 className={styles.sectionTitle}>Requisito</h2>
-
-            <div className={styles.inputGroup}>
-              <label htmlFor="requirementType">Tipo de Requisito</label>
-
-              <FormSelect
-                id="requirementType"
-                {...register("requirementType")}
-                defaultValue=""
-              >
-                <option value="" disabled>
-                  Selecciona cómo se gana la recompensa
-                </option>
-                {requirementTypesSchema.map((r) => (
-                  <option key={r.id} value={r.id}>
-                    {r.label}
-                  </option>
-                ))}
-              </FormSelect>
-
-              {errors.requirementType && (
-                <span className={styles.error}>
-                  {errors.requirementType.message}
-                </span>
-              )}
-            </div>
-
-            <div className={styles.inputGroup}>
-              <label htmlFor="requirementValue">Valor del Requisito</label>
-
-              <FormInput
-                id="requirementValue"
-                type={requirementType === "4" ? "text" : "number"}
-                placeholder={
-                  requirementType === "4"
-                    ? "Ej: Café latte"
-                    : "Ej: 10, 200, 1000"
-                }
-                {...register("requirementValue", {
-                  setValueAs: (val) => {
-                    if (requirementType === "4") return val;
-                    if (val === "" || val === null) return "";
-                    const num = Number(val);
-                    return isNaN(num) ? "" : num;
-                  },
-                })}
-              />
-
-              {errors.requirementValue && (
-                <span className={styles.error}>
-                  {errors.requirementValue.message}
-                </span>
-              )}
-            </div>
-
-            <ButtonCustom
-              isValid={isValid}
-              isSubmitting={isSubmitting}
-              loadingText="Guardando..."
+        <div className={styles.pagination}>
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#0a1773"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
-              Registrar
-            </ButtonCustom>
-          </form>
-        </FormProvider>
+              <path d="M15 6l-6 6l6 6" />
+            </svg>
+          </button>
+
+          <span>
+            Página {currentPage} de {totalPages}
+          </span>
+
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#0a1773"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M9 6l6 6l-6 6" />
+            </svg>
+          </button>
+        </div>
+        <ConfirmModal
+          open={!!deleteReward}
+          title="¿Eliminar recompensa?"
+          message={
+            deleteReward
+              ? `¿Estás seguro de eliminar la recompensa "${deleteReward.beneficio.nombre}"? Esta acción no se puede deshacer.`
+              : ""
+          }
+          confirmLabel="Eliminar"
+          confirmColor="danger"
+          onCancel={() => setDeleteReward(null)}
+          onConfirm={() => {
+            console.log("Eliminado:", deleteReward?.id);
+            setDeleteReward(null);
+          }}
+        />
       </div>
     </div>
   );

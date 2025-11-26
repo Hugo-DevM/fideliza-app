@@ -1,0 +1,66 @@
+.actionsCell {
+  width: 50px;
+  min-width: 50px;
+  text-align: center;
+  position: relative;
+}
+
+.menuWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menuButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.menuButton:hover {
+  background: #f1f1f1;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  background: white;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 6px 0;
+  min-width: 140px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+  z-index: 20;
+}
+
+.menuItem {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #333;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.menuItem:hover {
+  background: #f5f5f5;
+}
+
+.delete {
+  color: #d32f2f;
+}
+
+.delete:hover {
+  background: #fde7e7;
+}
