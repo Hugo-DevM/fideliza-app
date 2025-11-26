@@ -14,9 +14,17 @@ export default function ClientesPage() {
   const [search, setSearch] = useState("");
   const [deleteClient, setDeleteClient] = useState<Client | null>(null);
 
-  const clientes = clientsMock.filter((c) =>
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 5;
+
+  const filtered = clientsMock.filter((c) =>
     c.nombre.toLowerCase().includes(search.toLowerCase())
   );
+
+  const totalPages = Math.ceil(filtered.length / rowsPerPage);
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  const clientesPagina = filtered.slice(start, end);
 
   return (
     <div className={styles.page}>
@@ -28,14 +36,19 @@ export default function ClientesPage() {
             Agregar Cliente
           </Link>
         </div>
+
         <div className={styles.searchContainer}>
           <FormInput
             type="text"
             value={search}
             placeholder="Buscar clientes..."
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setCurrentPage(1);
+            }}
           />
         </div>
+
         <div className={styles.tableWrapper}>
           <table className={styles.table}>
             <thead className={styles.tableHead}>
@@ -48,7 +61,7 @@ export default function ClientesPage() {
             </thead>
 
             <tbody>
-              {clientes.map((cliente) => (
+              {clientesPagina.map((cliente) => (
                 <TableRow
                   key={cliente.id}
                   cliente={cliente}
@@ -58,6 +71,51 @@ export default function ClientesPage() {
             </tbody>
           </table>
         </div>
+
+        <div className={styles.pagination}>
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#0a1773"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M15 6l-6 6l6 6" />
+            </svg>
+          </button>
+
+          <span>
+            Página {currentPage} de {totalPages}
+          </span>
+
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#0a1773"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M9 6l6 6l-6 6" />
+            </svg>
+          </button>
+        </div>
+
         <ConfirmModal
           open={!!deleteClient}
           title="¿Eliminar cliente?"
