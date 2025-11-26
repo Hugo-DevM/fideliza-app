@@ -100,3 +100,138 @@ export const clientsMock = [
     recompensa: "Café Gratis",
   },
 ];
+
+//Datos a borra
+
+export const rewardsMock = [
+  {
+    id: 1,
+    beneficio: {
+      nombre: "Café Gratis",
+      descripcion: "En la compra de 10 cafés el 11 es gratis",
+      tipo_beneficio: "producto",
+      valor_beneficio: "Café",
+    },
+    requisito: {
+      tipo_requisito: "visitas",
+      valor_requisito: 10,
+    },
+  },
+  {
+    id: 2,
+    beneficio: {
+      nombre: "10% de Descuento",
+      descripcion: "Descuento en la compra total",
+      tipo_beneficio: "descuento",
+      valor_beneficio: 10,
+    },
+    requisito: {
+      tipo_requisito: "monto",
+      valor_requisito: 300,
+    },
+  },
+  {
+    id: 3,
+    beneficio: {
+      nombre: "Rebanada de Pastel",
+      descripcion: "Al llegar a 5 visitas obtén una rebanada",
+      tipo_beneficio: "producto",
+      valor_beneficio: "Rebanada de pastel",
+    },
+    requisito: {
+      tipo_requisito: "visitas",
+      valor_requisito: 5,
+    },
+  },
+  {
+    id: 4,
+    beneficio: {
+      nombre: "Bebida Mediana por $15",
+      descripcion: "Obtén una bebida por precio especial",
+      tipo_beneficio: "descuento_fijo",
+      valor_beneficio: 15,
+    },
+    requisito: {
+      tipo_requisito: "visitas",
+      valor_requisito: 8,
+    },
+  },
+  {
+    id: 5,
+    beneficio: {
+      nombre: "100 Puntos Extra",
+      descripcion: "Puntos adicionales para canjear",
+      tipo_beneficio: "puntos",
+      valor_beneficio: 100,
+    },
+    requisito: {
+      tipo_requisito: "puntos",
+      valor_requisito: 500,
+    },
+  },
+  {
+    id: 6,
+    beneficio: {
+      nombre: "2x1 en Smoothies",
+      descripcion: "Promo especial en smoothies seleccionados",
+      tipo_beneficio: "promocion",
+      valor_beneficio: "2x1 Smoothies",
+    },
+    requisito: {
+      tipo_requisito: "monto",
+      valor_requisito: 250,
+    },
+  },
+  {
+    id: 7,
+    beneficio: {
+      nombre: "Taza personalizada",
+      descripcion: "Taza de regalo por fidelidad",
+      tipo_beneficio: "producto",
+      valor_beneficio: "Taza personalizada",
+    },
+    requisito: {
+      tipo_requisito: "visitas",
+      valor_requisito: 12,
+    },
+  },
+  {
+    id: 8,
+    beneficio: {
+      nombre: "20% de Descuento",
+      descripcion: "Descuento premium",
+      tipo_beneficio: "descuento",
+      valor_beneficio: 20,
+    },
+    requisito: {
+      tipo_requisito: "monto",
+      valor_requisito: 500,
+    },
+  },
+  {
+    id: 9,
+    beneficio: {
+      nombre: "Refill Gratis",
+      descripcion: "Refill de café ilimitado por día",
+      tipo_beneficio: "promocion",
+      valor_beneficio: "Refill",
+    },
+    requisito: {
+      tipo_requisito: "visitas",
+      valor_requisito: 7,
+    },
+  },
+  {
+    id: 10,
+    beneficio: {
+      nombre: "250 Puntos",
+      descripcion: "Puntos para futuras compras",
+      tipo_beneficio: "puntos",
+      valor_beneficio: 250,
+    },
+    requisito: {
+      tipo_requisito: "puntos",
+      valor_requisito: 1200,
+    },
+  },
+];
