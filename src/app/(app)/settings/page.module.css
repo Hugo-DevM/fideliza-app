@@ -71,12 +71,40 @@
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .sidebar {
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    position: relative;
+    top: unset;
+    box-shadow: none;
+    padding: 0;
+    background: transparent;
+  }
+
+  .menu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+    width: 100%;
+  }
+
+  .menuItem {
+    border-radius: 0.7rem;
+    background: #f3f4f6;
+    padding: 0.5rem 0.4rem;
+    font-size: 0.85rem;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .menuItemActive {
+    background: #0a1773 !important;
+    color: white !important;
+  }
+
+  .sidebarTitle {
+    display: none;
   }
 }
 
