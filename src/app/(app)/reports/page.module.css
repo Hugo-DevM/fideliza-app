@@ -3,11 +3,30 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: start;
-  padding: 0 1rem 1rem 1rem;
+  align-items: flex-start;
   position: relative;
+  overflow: visible;
+  padding: 0 1rem 1rem 1rem;
   font-family: var(--font-poppins);
   width: 100%;
+  overflow-y: auto;
+}
+
+.page::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image: url("/icon.svg");
+  background-size: 60%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.08;
+  z-index: 0;
 }
 
 .container {
