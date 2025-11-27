@@ -7,8 +7,8 @@
   position: relative;
   overflow: visible;
   padding: 0 1rem 1rem 1rem;
-  position: relative;
   font-family: var(--font-poppins);
+  width: 100%;
   overflow-y: auto;
 }
 
