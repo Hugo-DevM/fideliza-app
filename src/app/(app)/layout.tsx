@@ -1,15 +1,20 @@
-import Navbar from "@/components/layout/Navbar";
-import React from "react";
+import { supabaseServer } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import AppLayout from "./app-layout";
 
 type Props = {
   children: React.ReactNode;
 };
 
-export default function AppLayout({ children }: Props) {
-  return (
-    <>
-      <Navbar />
-      <main className="layout-main">{children}</main>
-    </>
-  );
+export default async function Layout({ children }: Props) {
+  const supabase = await supabaseServer();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  return <AppLayout>{children}</AppLayout>;
 }
