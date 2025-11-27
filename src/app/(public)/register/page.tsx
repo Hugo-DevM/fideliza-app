@@ -4,7 +4,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   defaultValuesSingup,
   SingupSchema,
+  SingupSchemaType,
 } from "@/features/auth/schemas/singup.schema";
+
+import { girosSingupSchema } from "@/config/constants";
+import { singupAction } from "@/features/auth/server/singup.action";
+import { useRouter } from "next/navigation";
 
 import styles from "./page.module.css";
 import Image from "next/image";
@@ -12,9 +17,10 @@ import FormInput from "@/components/forms/FormInput";
 import ButtonCustom from "@/components/ui/Button";
 import Link from "next/link";
 import FormSelect from "@/components/forms/FormSelect";
-import { girosSingupSchema } from "@/config/constants";
+import z from "zod";
 
 export default function Register() {
+  const router = useRouter();
   const methodsRegister = useForm({
     mode: "onChange",
     resolver: zodResolver(SingupSchema),
@@ -26,9 +32,23 @@ export default function Register() {
     formState: { errors, isValid, isSubmitting },
   } = methodsRegister;
 
-  const onSubmit = () => {
-    console.log("Envio de datos");
+  const onSubmit = async (values: z.infer<typeof SingupSchema>) => {
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, String(value ?? ""));
+    });
+
+    const result = await singupAction(formData);
+
+    if (result?.error) {
+      console.error(result.error);
+      return;
+    }
+
+    router.push("/login");
   };
+
   return (
     <div className={styles.page}>
       <div className={styles.card}>
