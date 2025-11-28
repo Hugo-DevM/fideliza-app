@@ -3,16 +3,25 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   LoginSchema,
+  LoginSchemaType,
   defaultValuesLogin,
 } from "@/features/auth/schemas/login.schema";
+import { useRouter } from "next/navigation";
 
 import styles from "./page.module.css";
 import Image from "next/image";
 import FormInput from "@/components/forms/FormInput";
 import ButtonCustom from "@/components/ui/Button";
 import Link from "next/link";
+import { loginAction } from "@/features/auth/server/login.action";
+import ConfirmModal from "@/components/modal/ConfirmModal";
+import { useState } from "react";
 
 export default function Login() {
+  const [showModal, setShowModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const router = useRouter();
+
   const methodsLogin = useForm({
     mode: "onChange",
     resolver: zodResolver(LoginSchema),
@@ -24,13 +33,28 @@ export default function Login() {
     formState: { errors, isValid, isSubmitting },
   } = methodsLogin;
 
-  const onSubmit = () => {
-    console.log("Envio de datos");
+  const onSubmit = async (values: LoginSchemaType) => {
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, String(value ?? ""));
+    });
+
+    const result = await loginAction(formData);
+
+    if (result?.error) {
+      setErrorMessage(result.error);
+      setShowModal(true);
+      return;
+    }
+
+    router.push("/");
   };
   return (
     <div className={styles.page}>
       <div className={styles.card}>
         <Image
+          loading="eager"
           src="/logo.svg"
           width={160}
           height={80}
@@ -86,6 +110,21 @@ export default function Login() {
           </Link>
         </span>
       </div>
+      {showModal && (
+        <ConfirmModal
+          open={showModal}
+          title="Error al iniciar sesión"
+          message={
+            errorMessage === "Invalid login credentials"
+              ? "Contraseña y/o correo incorrecto"
+              : ""
+          }
+          cancelLabel="Cerrar"
+          confirmColor="danger"
+          onCancel={() => setShowModal(false)}
+          onConfirm={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 }
