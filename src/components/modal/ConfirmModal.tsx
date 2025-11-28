@@ -16,7 +16,7 @@ export default function ConfirmModal({
   open,
   title = "¿Estás seguro?",
   message,
-  confirmLabel = "Confirmar",
+  confirmLabel,
   cancelLabel = "Cancelar",
   confirmColor = "primary",
   onCancel,
@@ -39,12 +39,14 @@ export default function ConfirmModal({
             {cancelLabel}
           </button>
 
-          <button
-            className={`${styles.confirmBtn} ${styles[confirmColor]}`}
-            onClick={onConfirm}
-          >
-            {confirmLabel}
-          </button>
+          {confirmLabel && (
+            <button
+              className={`${styles.confirmBtn} ${styles[confirmColor]}`}
+              onClick={onConfirm}
+            >
+              {confirmLabel}
+            </button>
+          )}
         </div>
       </div>
     </div>
