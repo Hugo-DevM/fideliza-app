@@ -69,7 +69,7 @@ export default function Register() {
         <FormProvider {...methodsRegister}>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.inputGroup}>
-              <label htmlFor="companyName">Nombre del neogoció</label>
+              <label htmlFor="companyName">Nombre del negocio</label>
               <FormInput
                 type="text"
                 placeholder="Cafeteria FlyCoffe"
@@ -148,7 +148,7 @@ export default function Register() {
           </form>
         </FormProvider>
         <span className={styles.contentLink}>
-          Ya tienes una cuenta con nosotros?{" "}
+          ¿Ya tienes una cuenta con nosotros?{" "}
           <Link className={styles.link} href="/login">
             Iniciar Sesión
           </Link>
