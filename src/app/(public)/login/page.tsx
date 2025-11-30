@@ -7,16 +7,15 @@ import {
   defaultValuesLogin,
 } from "@/features/auth/schemas/login.schema";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { loginAction } from "@/features/auth/server/login.action";
 
 import styles from "./page.module.css";
 import Image from "next/image";
 import FormInput from "@/components/forms/FormInput";
 import ButtonCustom from "@/components/ui/Button";
 import Link from "next/link";
-import { loginAction } from "@/features/auth/server/login.action";
 import ConfirmModal from "@/components/modal/ConfirmModal";
-import { useState } from "react";
-import { title } from "process";
 
 export default function Login() {
   const [showModal, setShowModal] = useState(false);
@@ -121,7 +120,7 @@ export default function Login() {
               ? "Contraseña y/o correo incorrecto"
               : errorMessage === "EMAIL_NOT_VERIFIED"
               ? errorMessage
-              : "Tu correo no está verificado. Revisa tu correo para activarlo" 
+              : "Tu correo no está verificado. Revisa tu correo para activarlo"
           }
           cancelLabel="Cerrar"
           confirmColor="danger"
