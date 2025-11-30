@@ -16,6 +16,7 @@ import Link from "next/link";
 import { loginAction } from "@/features/auth/server/login.action";
 import ConfirmModal from "@/components/modal/ConfirmModal";
 import { useState } from "react";
+import { title } from "process";
 
 export default function Login() {
   const [showModal, setShowModal] = useState(false);
@@ -115,9 +116,12 @@ export default function Login() {
           open={showModal}
           title="Error al iniciar sesión"
           message={
+            errorMessage === "INVALID_CREDENTIALS" ||
             errorMessage === "Invalid login credentials"
               ? "Contraseña y/o correo incorrecto"
-              : ""
+              : errorMessage === "EMAIL_NOT_VERIFIED"
+              ? errorMessage
+              : "Tu correo no está verificado. Revisa tu correo para activarlo" 
           }
           cancelLabel="Cerrar"
           confirmColor="danger"
