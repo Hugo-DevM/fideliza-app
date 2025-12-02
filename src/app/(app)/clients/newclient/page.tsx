@@ -6,14 +6,16 @@ import {
   NewClientSchema,
   NewClientSchemaType,
 } from "@/features/clients/schemas/newclient.schema";
+import { newClientAction } from "@/features/clients/server/clients.action";
+import { useRouter } from "next/navigation";
 
 import styles from "./page.module.css";
 import FormInput from "@/components/forms/FormInput";
 import ButtonCustom from "@/components/ui/Button";
 import Link from "next/link";
-import { newClientAction } from "@/features/clients/server/clients.action";
 
 export default function NewClient() {
+  const router = useRouter();
   const methodsNewClient = useForm({
     mode: "onChange",
     resolver: zodResolver(NewClientSchema),
@@ -37,6 +39,8 @@ export default function NewClient() {
       console.error(result.error);
       return;
     }
+
+    router.push("/clients");
   };
   return (
     <div className={styles.page}>
