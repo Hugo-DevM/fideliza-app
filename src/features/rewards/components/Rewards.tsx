@@ -5,8 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   defaultValuesRewards,
   RewardsSchema,
+  RewardsSchemaType,
 } from "@/features/rewards/schemas/rewards.schema";
 import { Benefit, Requirement } from "../type";
+import { rewardAction } from "../server/rewards.action";
+import { useRouter } from "next/navigation";
 
 import styles from "./Rewards.module.css";
 import FormInput from "@/components/forms/FormInput";
@@ -21,6 +24,7 @@ export default function Rewards({
   benefits: Benefit[];
   requirements: Requirement[];
 }) {
+  const router = useRouter();
   const methods = useForm({
     mode: "onChange",
     resolver: zodResolver(RewardsSchema),
@@ -37,8 +41,21 @@ export default function Rewards({
   const benefitType = watch("benefitType");
   const requirementType = watch("requirementType");
 
-  const onSubmit = () => {
-    console.log("Envio de datos");
+  const onSubmit = async (values: RewardsSchemaType) => {
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, String(value ?? ""));
+    });
+
+    const result = await rewardAction(formData);
+
+    if (result?.error) {
+      console.error(result.error);
+      return;
+    }
+
+    router.push("/rewards");
   };
 
   return (
