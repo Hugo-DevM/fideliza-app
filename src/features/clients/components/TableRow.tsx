@@ -18,9 +18,9 @@ export default function TableRow({ cliente, onDelete }: Props) {
 
   return (
     <tr>
-      <td>{cliente.nombre}</td>
-      <td>{cliente.visitas}</td>
-      <td>{cliente.recompensa}</td>
+      <td>{cliente.fullname}</td>
+      <td>{cliente.total_visits}</td>
+      <td>{cliente.phone}</td>
 
       <td className={styles.actionsCell}>
         <div ref={menuRef} className={styles.menuWrapper}>

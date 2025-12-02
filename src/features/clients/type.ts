@@ -1,6 +1,6 @@
 export interface Client {
   id: string | number;
-  nombre: string;
-  visitas: number;
-  recompensa: string;
+  fullname: string;
+  phone: string;
+  total_visits: number;
 }
