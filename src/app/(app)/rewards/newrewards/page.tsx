@@ -1,6 +1,6 @@
 "use server";
 
-import Rewards from "@/features/rewards/components/Rewards";
+import NewRewards from "@/features/rewards/components/NewRewards";
 import {
   getBenefitsService,
   getRequirementsService,
@@ -10,5 +10,5 @@ export default async function NewRewardsPage() {
   const benefits = await getBenefitsService();
   const requirements = await getRequirementsService();
 
-  return <Rewards benefits={benefits} requirements={requirements} />;
+  return <NewRewards benefits={benefits} requirements={requirements} />;
 }
