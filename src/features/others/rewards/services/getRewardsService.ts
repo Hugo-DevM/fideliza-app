@@ -25,3 +25,16 @@ export async function getBenefitsService() {
 
   return data ?? [];
 }
+
+export async function getRewards() {
+  const supabase = await supabaseServer();
+
+  const { data, error } = await supabase
+    .from("rewards")
+    .select("id, name, benefit_value, requirement_type")
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error(error.message);
+
+  return data ?? [];
+}

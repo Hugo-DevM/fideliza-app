@@ -18,15 +18,11 @@ export default function RewardRow({ reward, onDelete }: Props) {
 
   return (
     <tr>
-      <td>{reward.beneficio.nombre}</td>
+      <td>{reward.name}</td>
 
-      <td>
-        {reward.beneficio.tipo_beneficio}: {reward.beneficio.valor_beneficio}
-      </td>
+      <td>{reward.benefit_value}</td>
 
-      <td>
-        {reward.requisito.tipo_requisito}: {reward.requisito.valor_requisito}
-      </td>
+      <td>{reward.requirement_type}</td>
 
       <td className={styles.actionsCell}>
         <div ref={menuRef} className={styles.menuWrapper}>
