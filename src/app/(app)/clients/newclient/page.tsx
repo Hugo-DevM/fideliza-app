@@ -4,12 +4,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   defaultValuesNewClient,
   NewClientSchema,
+  NewClientSchemaType,
 } from "@/features/clients/schemas/newclient.schema";
 
 import styles from "./page.module.css";
 import FormInput from "@/components/forms/FormInput";
 import ButtonCustom from "@/components/ui/Button";
 import Link from "next/link";
+import { newClientAction } from "@/features/clients/server/clients.action";
 
 export default function NewClient() {
   const methodsNewClient = useForm({
@@ -23,8 +25,18 @@ export default function NewClient() {
     formState: { errors, isValid, isSubmitting },
   } = methodsNewClient;
 
-  const onSubmit = () => {
-    console.log("datos en la base");
+  const onSubmit = async (values: NewClientSchemaType) => {
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, String(value ?? ""));
+    });
+
+    const result = await newClientAction(formData);
+    if (result?.error) {
+      console.error(result.error);
+      return;
+    }
   };
   return (
     <div className={styles.page}>
