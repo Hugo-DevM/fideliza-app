@@ -1,4 +1,3 @@
-import { benefitTypesSchema, requirementTypesSchema } from "@/config/constants";
 import { z } from "zod";
 
 export const RewardsSchema = z
@@ -8,27 +7,17 @@ export const RewardsSchema = z
       .string()
       .min(5, "Descripción de recompensa requerida")
       .optional(),
-    benefitType: z
-      .string()
-      .min(1, "Selecciona un tipo de beneficio")
-      .transform((v) => Number(v))
-      .refine((num) => benefitTypesSchema.some((t) => t.id === num), {
-        message: "Selecciona un beneficio válido",
-      }),
+    benefitType: z.coerce.number().min(1, "Selecciona un tipo de beneficio"),
     benefitValue: z.union([z.string(), z.number()]),
-    requirementType: z
-      .string()
-      .min(1, "Selecciona el tipo de requisito")
-      .transform((v) => Number(v))
-      .refine((num) => requirementTypesSchema.some((t) => t.id === num), {
-        message: "Selecciona un requisito válido",
-      }),
+
+    requirementType: z.coerce
+      .number()
+      .min(1, "Selecciona el tipo de requisito"),
     requirementValue: z.union([z.string(), z.number()]),
   })
   .superRefine((data, ctx) => {
     switch (data.benefitType) {
-      case 1:
-      case 5:
+      case 1: // Producto Gratis
         if (
           typeof data.benefitValue !== "string" ||
           !data.benefitValue.trim()
@@ -41,7 +30,7 @@ export const RewardsSchema = z
         }
         break;
 
-      case 2:
+      case 2: // Descuento
         if (typeof data.benefitValue !== "number" || data.benefitValue <= 0) {
           ctx.addIssue({
             path: ["benefitValue"],
@@ -50,45 +39,10 @@ export const RewardsSchema = z
           });
         }
         break;
-
-      case 3:
-        if (typeof data.benefitValue !== "number" || data.benefitValue <= 0) {
-          ctx.addIssue({
-            path: ["benefitValue"],
-            code: "custom",
-            message: "Debes ingresar un monto válido",
-          });
-        }
-        break;
-
-      case 4:
-        if (typeof data.benefitValue !== "number" || data.benefitValue <= 0) {
-          ctx.addIssue({
-            path: ["benefitValue"],
-            code: "custom",
-            message: "Debes ingresar un número de puntos válido",
-          });
-        }
-        break;
     }
-    switch (data.requirementType) {
-      case 1:
-      case 2:
-      case 3:
-      case 5:
-        if (
-          typeof data.requirementValue !== "number" ||
-          data.requirementValue <= 0
-        ) {
-          ctx.addIssue({
-            path: ["requirementValue"],
-            code: "custom",
-            message: "Este requisito requiere un valor numérico mayor a 0",
-          });
-        }
-        break;
 
-      case 4:
+    switch (data.requirementType) {
+      case 1: // Producto específico
         if (
           typeof data.requirementValue !== "string" ||
           !data.requirementValue.trim()
@@ -97,6 +51,20 @@ export const RewardsSchema = z
             path: ["requirementValue"],
             code: "custom",
             message: "Debes ingresar el producto requerido",
+          });
+        }
+        break;
+
+      case 2: // Puntos
+      case 3: // Monto acumulado
+        if (
+          typeof data.requirementValue !== "number" ||
+          data.requirementValue <= 0
+        ) {
+          ctx.addIssue({
+            path: ["requirementValue"],
+            code: "custom",
+            message: "Ingrese un valor numérico mayor a 0",
           });
         }
         break;
