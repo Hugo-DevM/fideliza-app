@@ -37,7 +37,7 @@ export default function NewClient() {
         <FormProvider {...methodsNewClient}>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.inputGroup}>
-              <label htmlFor="fullname">Nombre completo</label>
+              <label htmlFor="fullname">Nombre completo *</label>
               <FormInput
                 type="text"
                 placeholder="Ej: Jua Francisco Garcia Peréz"
@@ -49,7 +49,7 @@ export default function NewClient() {
               )}
             </div>
             <div className={styles.inputGroup}>
-              <label htmlFor="phoneNumber">Numero de telefóno</label>
+              <label htmlFor="phoneNumber">Numero de telefóno *</label>
               <FormInput
                 type="text"
                 placeholder="Ej: 3221453378"
@@ -63,7 +63,7 @@ export default function NewClient() {
               )}
             </div>
             <div className={styles.inputGroup}>
-              <label htmlFor="email">Correo electrónico</label>
+              <label htmlFor="email">Correo electrónico (opcional)</label>
               <FormInput
                 type="email"
                 placeholder="Ej: fideliza@fideliza.mx"
