@@ -2,7 +2,12 @@ import { z } from "zod";
 
 export const SingupSchema = z
   .object({
-    email: z.email("Email no valido").min(1, "Email requerido"),
+    email: z
+      .string()
+      .trim()
+      .email("Email no valido")
+      .min(1, "Email requerido")
+      .transform((val) => val.toLowerCase()),
     password: z.string().min(8, "Debe tener al menos 8 caracteres"),
     confirmPassword: z.string().min(8, "Debe tener al menos 8 caracteres"),
     companyName: z.string().min(1, "Nombre de empresa requerido"),
