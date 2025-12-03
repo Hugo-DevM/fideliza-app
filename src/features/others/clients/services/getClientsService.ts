@@ -12,3 +12,17 @@ export async function getClientsService() {
 
   return data ?? [];
 }
+
+export async function getClientByIdService(id: string) {
+  const supabase = await supabaseServer();
+
+  const { data, error } = await supabase
+    .from("customers")
+    .select("id, fullname, phone,email")
+    .eq("id", id)
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return data ?? [];
+}
