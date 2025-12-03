@@ -71,7 +71,7 @@ export default function NewRewards({
             <h2 className={styles.sectionTitle}>Beneficio</h2>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="rewardName">Nombre de la recompensa</label>
+              <label htmlFor="rewardName">Nombre de la recompensa *</label>
               <FormInput
                 type="text"
                 placeholder="Café Gratis"
@@ -86,7 +86,7 @@ export default function NewRewards({
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="description">Descripción</label>
+              <label htmlFor="description">Descripción *</label>
               <FormInput
                 type="text"
                 id="description"
@@ -101,7 +101,7 @@ export default function NewRewards({
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="benefitType">Tipo de Beneficio</label>
+              <label htmlFor="benefitType">Tipo de Beneficio *</label>
               <FormSelect
                 id="benefitType"
                 {...register("benefitType")}
@@ -124,7 +124,7 @@ export default function NewRewards({
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="benefitValue">Valor del Beneficio</label>
+              <label htmlFor="benefitValue">Valor del Beneficio *</label>
 
               <FormInput
                 id="benefitValue"
@@ -152,7 +152,7 @@ export default function NewRewards({
             <h2 className={styles.sectionTitle}>Requisito</h2>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="requirementType">Tipo de Requisito</label>
+              <label htmlFor="requirementType">Tipo de Requisito *</label>
 
               <FormSelect
                 id="requirementType"
@@ -177,7 +177,7 @@ export default function NewRewards({
             </div>
 
             <div className={styles.inputGroup}>
-              <label htmlFor="requirementValue">Valor del Requisito</label>
+              <label htmlFor="requirementValue">Valor del Requisito *</label>
 
               <FormInput
                 id="requirementValue"
