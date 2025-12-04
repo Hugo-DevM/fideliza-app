@@ -13,7 +13,7 @@ export const RewardsSchema = z
     requirementType: z.coerce
       .number()
       .min(1, "Selecciona el tipo de requisito"),
-    requirementValue: z.union([z.string(), z.number()]),
+    requirementValue: z.coerce.number().min(1, "Ingresa un monto valido"),
   })
   .superRefine((data, ctx) => {
     switch (data.benefitType) {
@@ -36,35 +36,6 @@ export const RewardsSchema = z
             path: ["benefitValue"],
             code: "custom",
             message: "Debes ingresar un porcentaje válido",
-          });
-        }
-        break;
-    }
-
-    switch (data.requirementType) {
-      case 1: // Producto específico
-        if (
-          typeof data.requirementValue !== "string" ||
-          !data.requirementValue.trim()
-        ) {
-          ctx.addIssue({
-            path: ["requirementValue"],
-            code: "custom",
-            message: "Debes ingresar el producto requerido",
-          });
-        }
-        break;
-
-      case 2: // Puntos
-      case 3: // Monto acumulado
-        if (
-          typeof data.requirementValue !== "number" ||
-          data.requirementValue <= 0
-        ) {
-          ctx.addIssue({
-            path: ["requirementValue"],
-            code: "custom",
-            message: "Ingrese un valor numérico mayor a 0",
           });
         }
         break;
