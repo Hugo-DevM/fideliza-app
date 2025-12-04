@@ -181,20 +181,9 @@ export default function NewRewards({
 
               <FormInput
                 id="requirementValue"
-                type={requirementType === "1" ? "text" : "number"}
-                placeholder={
-                  requirementType === "1"
-                    ? "Ej: Café latte"
-                    : "Ej: 10, 200, 1000"
-                }
-                {...register("requirementValue", {
-                  setValueAs: (val) => {
-                    if (requirementType === "1") return val;
-                    if (val === "" || val === null) return "";
-                    const num = Number(val);
-                    return isNaN(num) ? "" : num;
-                  },
-                })}
+                type="number"
+                placeholder="Ej: 10, 200, 1000"
+                {...register("requirementValue")}
               />
 
               {errors.requirementValue && (
