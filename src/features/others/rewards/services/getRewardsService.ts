@@ -38,3 +38,19 @@ export async function getRewards() {
 
   return data ?? [];
 }
+
+export async function getRewardByIdService(id: string) {
+  const supabase = await supabaseServer();
+
+  const { data, error } = await supabase
+    .from("rewards")
+    .select(
+      "id, name, description, benefit_type, benefit_value, requirement_type, requirement_value"
+    )
+    .eq("id", id)
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return data ?? [];
+}
